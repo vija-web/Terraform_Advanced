@@ -25,7 +25,7 @@ data "aws_ssm_parameter" "Redis_sg_id" {
 }
 
 data "aws_ssm_parameter" "Rabbitmq_sg_id" {
-  name = "${local.common}-Rabbitmq-sg"
+  name = "${local.common}-RabbitMQ-sg"
 }
 
 data "aws_ssm_parameter" "Mysql_sg_id" {
