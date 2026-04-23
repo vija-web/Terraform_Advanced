@@ -53,3 +53,7 @@ variable "tags_database_route_table" {
     type = map
     default = {}
 }
+
+variable "region_name" {
+    type = string
+}

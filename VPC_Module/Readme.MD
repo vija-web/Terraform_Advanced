@@ -4,14 +4,14 @@ This VPC_Module Repo creates the following resources
 
 * vpc 
 * Internet Gateway
-* public subnet
-* application subnet (private subnet)
-* database subnet (private subnet)
-* elastic IP
-* Nat gateway 
-* public route table and its routes
-* application route table and its routes
-* database route table and its routes
+* 2 public subnets us-east-1a and us-east-1b
+* 2 application subnets us-east-1a and us-east-1b (private subnet)
+* 2 database subnets us-east-1a and us-east-1b (private subnet)
+* 2 elastic IP for two NAT Gateways
+* 2 Nat gateways for us-east-1a and us-east-1b
+* 2 public routetables and its routes
+* 2 application routetables and its routes
+* 2 database routetables and its routes
 
 ### Inputs Variables
 
@@ -41,9 +41,13 @@ This VPC_Module Repo creates the following resources
 
 ### Outputs
 
---- As per requested we are returning only these values ---
+As per requested we are returning only these values
+
+* All required outputs are provided in the SSM_Parameters.tf file
+
+#### For Sample
 
 * vpc_id - It will return the id of the VPC created.
 
-* public_subnet_id - It will return the public subnet id.
+* public_subnet_ids - It will return the public subnet ids of us-east-1a and     us-east-1b.
 

@@ -6,4 +6,5 @@ module "vpc" {
     cidr_subnet = var.subnet_cidr
     project = var.project
     env = var.Environment
+    region_name = var.region_name
 }
