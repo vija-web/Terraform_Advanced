@@ -24,6 +24,7 @@ resource "aws_instance" "Catalogue" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh catalogue"
     ]
@@ -56,6 +57,7 @@ resource "aws_instance" "Cart" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh cart"
     ]
@@ -87,6 +89,7 @@ resource "aws_instance" "Shipping" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh shipping"
     ]
@@ -118,6 +121,7 @@ resource "aws_instance" "Payment" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh payment"
     ]
@@ -149,6 +153,7 @@ resource "aws_instance" "User" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh user"
     ]

@@ -6,7 +6,7 @@ resource "aws_instance" "Catalogue" {
   subnet_id = data.aws_ssm_parameter.public_subnet_ids[count.index].value
   vpc_security_group_ids = [ data.aws_ssm_parameter.Frontend_sg_id.value ]
   associate_public_ip_address = true
-  
+
   tags = {
     Name = "Frontend-${var.zones[count.index]}"
   }
@@ -25,6 +25,7 @@ resource "aws_instance" "Catalogue" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh frontend"
     ]

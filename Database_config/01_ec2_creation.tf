@@ -24,6 +24,7 @@ resource "aws_instance" "Mongodb" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh mongodb"
     ]
@@ -56,6 +57,7 @@ resource "aws_instance" "redis" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh redis"
     ]
@@ -87,6 +89,7 @@ resource "aws_instance" "RabbitMQ" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh rabbitmq"
     ]
@@ -118,6 +121,7 @@ resource "aws_instance" "mysql" {
 
   provisioner "remote-exec" {
     inline = [
+      "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
       "sudo sh /tmp/bootstrap.sh mysql"
     ]
