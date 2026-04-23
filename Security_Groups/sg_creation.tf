@@ -12,7 +12,7 @@ resource "aws_security_group" "sg" {
 }
 
 resource "aws_security_group_rule" "allow_ssh" {
-  count = length(var.instances) - 1
+  count = length(local.private_instances)
   type                     = "ingress"
   from_port                = 22
   to_port                  = 22

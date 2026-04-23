@@ -25,7 +25,7 @@ resource "aws_instance" "Mongodb" {
   provisioner "remote-exec" {
     inline = [
       "chmod 777 /tmp/bootstrap.sh", 
-      "sudo sh /tmp/bootstrap.sh "
+      "sudo sh /tmp/bootstrap.sh mongodb"
     ]
   }
 }
@@ -41,6 +41,25 @@ resource "aws_instance" "redis" {
   tags = {
     Name = "Redis-${var.zones[count.index]}"
   }
+
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+    host     = self.private_ip
+  }
+
+  provisioner "file" {
+    source      = "bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod 777 /tmp/bootstrap.sh", 
+      "sudo sh /tmp/bootstrap.sh redis"
+    ]
+  }
 }
 
 resource "aws_instance" "rabbitmq" {
@@ -53,6 +72,25 @@ resource "aws_instance" "rabbitmq" {
   tags = {
     Name = "RabbitMQ-${var.zones[count.index]}"
   }
+
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+    host     = self.private_ip
+  }
+
+  provisioner "file" {
+    source      = "bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod 777 /tmp/bootstrap.sh", 
+      "sudo sh /tmp/bootstrap.sh rabbitmq"
+    ]
+  }
 }
 
 resource "aws_instance" "mysql" {
@@ -64,5 +102,24 @@ resource "aws_instance" "mysql" {
 
   tags = {
     Name = "Mysql-${var.zones[count.index]}"
+  }
+
+  connection {
+    type     = "ssh"
+    user     = "ec2-user"
+    password = "DevOps321"
+    host     = self.private_ip
+  }
+
+  provisioner "file" {
+    source      = "bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "chmod 777 /tmp/bootstrap.sh", 
+      "sudo sh /tmp/bootstrap.sh mysql"
+    ]
   }
 }
