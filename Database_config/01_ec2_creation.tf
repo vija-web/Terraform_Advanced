@@ -67,7 +67,7 @@ resource "aws_instance" "rabbitmq" {
   ami           = "ami-0220d79f3f480ecf5"
   instance_type = "t3.micro"
   subnet_id = data.aws_ssm_parameter.database_subnet_ids[count.index].value
-  vpc_security_group_ids = [ data.aws_ssm_parameter.RabbitMQ_sg_id.value ]
+  vpc_security_group_ids = [ data.aws_ssm_parameter.Rabbitmq_sg_id.value ]
 
   tags = {
     Name = "RabbitMQ-${var.zones[count.index]}"
