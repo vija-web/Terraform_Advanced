@@ -62,7 +62,7 @@ resource "aws_instance" "redis" {
   }
 }
 
-resource "aws_instance" "rabbitmq" {
+resource "aws_instance" "RabbitMQ" {
   count = 2
   ami           = "ami-0220d79f3f480ecf5"
   instance_type = "t3.micro"
