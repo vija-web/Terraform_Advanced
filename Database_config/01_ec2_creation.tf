@@ -127,3 +127,39 @@ resource "aws_instance" "mysql" {
     ]
   }
 }
+
+resource "aws_route53_record" "mongodb" {
+  count = 2 
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = " mongodb-${var.project}-${var.environment}-${var.zones[count.index]}.vijayaws.fun"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mongodb[count.index].private_ip]
+}
+
+resource "aws_route53_record" "redis" {
+  count = 2 
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = " redis-${var.project}-${var.environment}-${var.zones[count.index]}.vijayaws.fun"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.redis[count.index].private_ip]
+}
+
+resource "aws_route53_record" "RabbitMQ" {
+  count = 2 
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = " rabbitmq-${var.project}-${var.environment}-${var.zones[count.index]}.vijayaws.fun"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.RabbitMQ[count.index].private_ip]
+}
+
+resource "aws_route53_record" "mysql" {
+  count = 2 
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = " mysql-${var.project}-${var.environment}-${var.zones[count.index]}.vijayaws.fun"
+  type    = "A"
+  ttl     = 1
+  records = [aws_instance.mysql[count.index].private_ip]
+}
