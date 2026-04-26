@@ -48,7 +48,7 @@ resource "aws_ami_from_instance" "catalogue_ami" {
 
 resource "aws_instance" "Catalogue_latest" {
   count = 2
-  ami           = "aws_ami_from_instance.catalogue_ami.id"
+  ami           = aws_ami_from_instance.catalogue_ami.id
   instance_type = "t3.micro"
   subnet_id = data.aws_ssm_parameter.application_subnet_ids[count.index].value
   vpc_security_group_ids = [ data.aws_ssm_parameter.Catalogue_sg_id.value ]
