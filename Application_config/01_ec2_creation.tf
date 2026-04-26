@@ -4,7 +4,7 @@ resource "aws_instance" "Catalogue" {
   instance_type = "t3.micro"
   vpc_security_group_ids = [ aws_security_group.sg.id ]
   subnet_id = data.aws_ssm_parameter.application_subnet_ids[0].value
-  vpc_security_group_ids = [ data.aws_ssm_parameter.application_sg.value ]
+  vpc_security_group_ids = [ data.aws_ssm_parameter.Catalogue_sg_id.value ]
 
   tags = {
     Name = "Catalogue"
