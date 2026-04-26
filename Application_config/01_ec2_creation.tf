@@ -1,7 +1,7 @@
 resource "aws_security_group" "sg" {
   name = "Temp_Premission_Catalogue"
   vpc_id = data.aws_ssm_parameter.roboshop_vpc_id.value
-  
+
   egress {
     from_port        = 0
     to_port          = 0
@@ -22,6 +22,8 @@ resource "aws_instance" "Catalogue" {
   ami           = "ami-0220d79f3f480ecf5"
   instance_type = "t3.micro"
   vpc_security_group_ids = [ aws_security_group.sg.id ]
+  subnet_id = data.aws_ssm_parameter.application_subnet_ids[0].value
+  
 
   tags = {
     Name = "Catalogue"
