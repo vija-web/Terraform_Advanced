@@ -31,10 +31,6 @@ action "aws_ec2_stop_instance" "example" {
   config {
     instance_id = aws_instance.Catalogue.id
   }
-
-  depends_on = [
-    aws_instance.Catalogue
-  ]
 }
 
 resource "aws_ami_from_instance" "catalogue_ami" {
@@ -61,7 +57,4 @@ resource "aws_instance" "Catalogue_latest" {
     Name = "${local.common}-Catalogue-${var.zones[count.index]}"
   } 
 }
-
-
-
 
