@@ -43,3 +43,7 @@ data "aws_ssm_parameter" "bastion_sg_id" {
 data "aws_ssm_parameter" "roboshop_vpc_id" {
   name = "${var.project}-vpc_id"
 }
+
+data "aws_ssm_parameter" "application_sg" {
+  name = "application_sg"
+}

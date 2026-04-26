@@ -11,6 +11,18 @@ resource "aws_security_group" "sg" {
   }
 }
 
+resource "aws_security_group" "Application_sg" {
+  name = "application_sg"
+  vpc_id = data.aws_ssm_parameter.roboshop_vpc_id.value
+  egress {
+    from_port        = 0
+    to_port          = 0
+    protocol         = "-1"
+    cidr_blocks      = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = ["::/0"]
+  }
+}
+
 resource "aws_security_group_rule" "allow_ssh" {
   count = length(local.private_instances)
   type                     = "ingress"
@@ -38,6 +50,27 @@ resource "aws_security_group_rule" "catalogue_to_mongodb" {
   to_port                  = 27017
   protocol                 = "tcp"
 
-  security_group_id        = aws_security_group.sg[7].id
-  source_security_group_id = aws_security_group.sg[2].id
+  security_group_id        = aws_security_group.sg[7].id 
+  source_security_group_id = aws_security_group.Application_sg.id
 }
+
+resource "aws_security_group_rule" "catalogue_temp_to_mongodb" {
+  type                     = "ingress"
+  from_port                = 27017
+  to_port                  = 27017
+  protocol                 = "tcp"
+
+  security_group_id        = aws_security_group.sg[7].id
+  source_security_group_id = aws_security_group.Application_sg.id
+}
+
+resource "aws_security_group_rule" "bastion_to_catalogue_temp" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+
+  security_group_id        = aws_security_group.Application_sg.id
+  source_security_group_id = aws_security_group.sg[0].id
+}
+
