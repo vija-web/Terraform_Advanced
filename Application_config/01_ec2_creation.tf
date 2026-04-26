@@ -38,7 +38,7 @@ resource "aws_ami_from_instance" "catalogue_ami" {
   source_instance_id = aws_instance.Catalogue.id
 
   depends_on = [
-    aws_ec2_stop_instance.example
+    action.aws_ec2_stop_instance.example
   ]
 
   tags = {
