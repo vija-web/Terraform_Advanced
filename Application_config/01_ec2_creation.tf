@@ -45,7 +45,7 @@ resource "aws_instance" "Catalogue" {
     inline = [
       "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
-      "sudo sh /tmp/bootstrap.sh catalogue ${var.project} ${var.environment}"
+      "sudo sh /tmp/bootstrap.sh catalogue ${var.project} ${var.environment} ${var.zones[0]}"
     ]
   }
 }
