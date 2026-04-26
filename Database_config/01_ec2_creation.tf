@@ -134,7 +134,7 @@ resource "aws_route53_record" "mongodb" {
   name    = " mongodb-${var.project}-${var.environment}-${var.zones[count.index]}.vijayaws.fun"
   type    = "A"
   ttl     = 1
-  records = [aws_instance.mongodb[count.index].private_ip]
+  records = [aws_instance.Mongodb[count.index].private_ip]
 }
 
 resource "aws_route53_record" "redis" {

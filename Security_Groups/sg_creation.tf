@@ -21,3 +21,13 @@ resource "aws_security_group_rule" "allow_ssh" {
   security_group_id        = aws_security_group.sg[count.index + 1].id
   source_security_group_id = aws_security_group.sg[0].id
 }
+
+resource "aws_security_group_rule" "allow_ssh_for_bastion" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
+
+  security_group_id        = aws_security_group.sg[0].id
+  cidr_blocks              = ["0.0.0.0/0"] 
+}
