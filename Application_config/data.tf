@@ -36,3 +36,7 @@ data "aws_ssm_parameter" "User_sg_id" {
   name = "${local.common}-User-sg"
 }
 
+data "aws_ssm_parameter" "bastion_sg_id" {
+  name = "${local.common}-Bastion-sg"
+}
+
