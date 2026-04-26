@@ -1,5 +1,7 @@
 resource "aws_security_group" "sg" {
   name = "Temp_Premission_Catalogue"
+  vpc_id = data.aws_ssm_parameter.roboshop_vpc_id.value
+  
   egress {
     from_port        = 0
     to_port          = 0
