@@ -34,5 +34,4 @@ data "aws_ssm_parameter" "Mysql_sg_id" {
 
 data "aws_route53_zone" "selected" {
   name         = "vijayaws.fun"
-  private_zone = true
 }
