@@ -16,7 +16,7 @@ resource "aws_security_group_rule" "allow_ssh" {
   protocol                 = "tcp"
 
   security_group_id        = aws_security_group.sg.id
-  source_security_group_id = data.bastion_sg_id.value
+  source_security_group_id = data.aws_ssm_parameter.bastion_sg_id.value
 }
 
 resource "aws_instance" "Catalogue" {
