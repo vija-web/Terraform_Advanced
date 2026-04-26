@@ -35,3 +35,4 @@ data "aws_ssm_parameter" "Payment_sg_id" {
 data "aws_ssm_parameter" "User_sg_id" {
   name = "${local.common}-User-sg"
 }
+
