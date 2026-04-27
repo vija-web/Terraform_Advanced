@@ -16,6 +16,11 @@ data "aws_ssm_parameter" "application_subnet_ids" {
   name = "${local.common}-application_subnet-${var.zones[count.index]}"
 }
 
+data "aws_ssm_parameter" "public_subnet_ids" {
+  count = 2
+  name = "${local.common}-public_subnet-${var.zones[count.index]}"
+}
+
 data "aws_ssm_parameter" "Catalogue_sg_id" {
   name = "${local.common}-Catalogue-sg"
 }

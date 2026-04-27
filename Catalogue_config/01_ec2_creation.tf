@@ -16,7 +16,7 @@ resource "aws_instance" "Catalogue" {
 resource "terraform_data" "catalogue" {
   count = 2
   # Changes to any instance of the cluster requires re-provisioning
-  triggers = {
+  triggers_replace = {
     catalogue_instance_ids = aws_instance.Catalogue[count.index].id
   }
   
