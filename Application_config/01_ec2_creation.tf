@@ -30,12 +30,6 @@ resource "aws_instance" "Catalogue" {
   }
 }
 
-action "aws_ec2_stop_instance" "example" {
-  config {
-    instance_id = aws_instance.Catalogue.id
-  }
-}
-
 resource "aws_ami_from_instance" "catalogue_ami" {
   name               = "catalogue-custom-ami"
   source_instance_id = aws_instance.Catalogue.id
