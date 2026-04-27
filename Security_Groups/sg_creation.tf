@@ -42,4 +42,32 @@ resource "aws_security_group_rule" "catalogue_to_mongodb" {
   source_security_group_id = aws_security_group.sg[2].id
 }
 
+resource "aws_security_group_rule" "allow_ssh_to_backend_alb" {
+  type                     = "ingress"
+  from_port                = 22
+  to_port                  = 22
+  protocol                 = "tcp"
 
+  security_group_id        = aws_security_group.sg[11].id
+  cidr_blocks              = ["0.0.0.0/0"] 
+}
+
+resource "aws_security_group_rule" "allusers_to_backend_alb" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+
+  security_group_id        = aws_security_group.sg[11].id
+  cidr_blocks              = ["0.0.0.0/0"] 
+}
+
+resource "aws_security_group_rule" "backend_alb_to_catalogue" {
+  type                     = "ingress"
+  from_port                = 8080
+  to_port                  = 8080
+  protocol                 = "tcp"
+
+  security_group_id        = aws_security_group.sg[2].id  #catalogue
+  source_security_group_id = aws_security_group.sg[11].id #backend_alb
+}

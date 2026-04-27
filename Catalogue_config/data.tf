@@ -40,6 +40,10 @@ data "aws_ssm_parameter" "bastion_sg_id" {
   name = "${local.common}-Bastion-sg"
 }
 
+data "aws_ssm_parameter" "backend_alb_sg_id" {
+  name = "${local.common}-backend-alb-sg"
+}
+
 data "aws_ssm_parameter" "roboshop_vpc_id" {
   name = "${var.project}-vpc_id"
 }

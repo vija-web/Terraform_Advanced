@@ -1,7 +1,7 @@
 variable "instances" {
     default = [
         "Bastion", "Frontend", "Catalogue", "Shipping", "Cart", "Payment" , "User", "Mongodb",
-        "Redis", "Mysql", "RabbitMQ"
+        "Redis", "Mysql", "RabbitMQ" , "backend-alb"
     ]
 }
 
