@@ -174,7 +174,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
 
   condition {
     path_pattern {
-      values = ["/api/catalogue*"]
+      values = ["/products*"]
     }
   }
 }
