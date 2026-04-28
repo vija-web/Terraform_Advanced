@@ -64,12 +64,6 @@ resource "aws_ami_from_instance" "catalogue_ami" {
   }
 }
 
-resource "aws_ec2_instance_state" "terminate_instance" {
-  count = 2
-  instance_id = aws_instance.Catalogue[count.index].id
-  state       = "terminated"
-  depends_on = [ aws_ami_from_instance.catalogue_ami ]
-}
 
 resource "aws_launch_template" "catalogue-launch-template" {
   count = 2
@@ -143,10 +137,6 @@ resource "aws_autoscaling_group" "catalogue" {
   health_check_type         = "ELB"
   health_check_grace_period = 60
   default_cooldown          = 60
-
-  tags = {
-    Name = "ASG-Catalogue-${var.zones[count.index]}"
-  }
 }
 
 resource "aws_autoscaling_policy" "catalogue_cpu_policy" {
