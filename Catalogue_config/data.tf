@@ -52,3 +52,7 @@ data "aws_ssm_parameter" "backend_alb_sg_id" {
 data "aws_ssm_parameter" "roboshop_vpc_id" {
   name = "${var.project}-vpc_id"
 }
+
+data "aws_route53_zone" "selected" {
+  name         = "vijayaws.fun"
+}

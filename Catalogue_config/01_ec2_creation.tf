@@ -4,7 +4,7 @@ resource "aws_instance" "Catalogue" {
   count = 2
   ami           = "ami-0220d79f3f480ecf5"
   instance_type = "t3.micro"
-  subnet_id = data.aws_ssm_parameter.application_subnet_ids[0].value
+  subnet_id = data.aws_ssm_parameter.application_subnet_ids[count.index].value
   vpc_security_group_ids = [ data.aws_ssm_parameter.Catalogue_sg_id.value ]
 
   tags = {
@@ -64,17 +64,27 @@ resource "aws_ami_from_instance" "catalogue_ami" {
   }
 }
 
+resource "aws_ec2_instance_state" "terminate_instance" {
+  count = 2
+  instance_id = aws_instance.Catalogue[count.index].id
+  state       = "terminated"
+  depends_on = [ aws_ami_from_instance.catalogue_ami ]
+}
+
 resource "aws_launch_template" "catalogue-launch-template" {
   count = 2
   name = "catalogue-${var.project}-${var.environment}-${var.zones[count.index]}"
 
   image_id = aws_ami_from_instance.catalogue_ami[count.index].id
-  instance_type = "t2.micro"
-  placement {
-    availability_zone = "${var.zones[count.index]}"
-  }
+  instance_type = "t3.micro"
 
+  # when we do terraform apply 2nd time then new varsion will be created with new ami
+  update_default_version = true
   vpc_security_group_ids = [ data.aws_ssm_parameter.Catalogue_sg_id.value ]
+
+  tags = {
+    Name = "catalogue-LT-${var.zones[count.index]}"
+  }
 }
 
 resource "aws_lb_target_group" "Catalogue_tg" {
@@ -88,10 +98,10 @@ resource "aws_lb_target_group" "Catalogue_tg" {
     path                = "/health"
     port                = "8080"
     protocol            = "HTTP"
-    healthy_threshold   = 2
+    healthy_threshold   = 3
     unhealthy_threshold = 2
     timeout             = 5
-    interval            = 10
+    interval            = 15
     matcher             = "200-399"
   }
 
@@ -118,8 +128,43 @@ resource "aws_autoscaling_group" "catalogue" {
 
   launch_template {
     id      = aws_launch_template.catalogue-launch-template[count.index].id
-    version = "$Latest"
+    version = "$Latest" 
+    # takes the latest version of the launch template
   }
+
+  instance_refresh {
+    strategy = "Rolling"
+    preferences {
+      min_healthy_percentage = 50 # atlest 50% instances should be live
+    }
+    triggers = ["launch_template"]
+  }
+
+  health_check_type         = "ELB"
+  health_check_grace_period = 60
+  default_cooldown          = 60
+
+  tags = {
+    Name = "ASG-Catalogue-${var.zones[count.index]}"
+  }
+}
+
+resource "aws_autoscaling_policy" "catalogue_cpu_policy" {
+  count                  = 2
+  name                   = "catalogue-cpu-policy-${var.zones[count.index]}"
+  autoscaling_group_name = aws_autoscaling_group.catalogue[count.index].name
+
+  policy_type = "TargetTrackingScaling"
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 75.0
+  }
+
+  estimated_instance_warmup = 60
 }
 
 # Application Load Balancer
@@ -143,6 +188,17 @@ resource "aws_lb" "main_alb" {
   }
 }
 
+resource "aws_route53_record" "alb_route_creation" {
+  zone_id = data.aws_route53_zone.selected.zone_id
+  name    = "catalogue.backend-alb-${var.project}-${var.environment}"
+  type    = "A"
+
+  alias {
+    name                   = aws_lb.main_alb.dns_name
+    zone_id                = aws_lb.main_alb.zone_id
+    evaluate_target_health = true
+  }
+}
 
 # HTTP Listener
 resource "aws_lb_listener" "http_listener" {
@@ -155,14 +211,14 @@ resource "aws_lb_listener" "http_listener" {
 
     fixed_response {
       content_type = "text/plain"
-      message_body = "Invalid backend API path"
+      message_body = "Invalid backend API path" # other than this /products
       status_code  = "404"
     }
   }
 }
 
 
-# Listener Rule for /api/catalogue/
+# Listener Rule for /products
 resource "aws_lb_listener_rule" "catalogue_rule" {
   listener_arn = aws_lb_listener.http_listener.arn
   priority     = 10
@@ -170,6 +226,14 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
   action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.Catalogue_tg.arn
+  }
+  
+  condition {
+    host_header {
+      values = [
+        "catalogue.backend-alb-${var.project}-${var.environment}.${var.domain_name}"
+      ]
+    }
   }
 
   condition {

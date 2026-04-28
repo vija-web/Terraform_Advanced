@@ -14,3 +14,7 @@ variable "zones" {
 variable "region_name" {
     default = "us-east-1"
 }
+
+variable "domain_name" {
+    default = "vijayaws.fun"
+}
