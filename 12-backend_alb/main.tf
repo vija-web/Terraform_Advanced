@@ -58,7 +58,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = data.catalogue_tg_arn.value
+    target_group_arn = data.aws_ssm_parameter.catalogue_tg_arn.value
   }
   
   condition {
@@ -76,7 +76,7 @@ resource "aws_lb_listener_rule" "user_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = data.user_tg_arn.value
+    target_group_arn = data.aws_ssm_parameter.user_tg_arn.value
   }
   
   condition {
@@ -94,7 +94,7 @@ resource "aws_lb_listener_rule" "cart_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = data.cart_tg_arn.value
+    target_group_arn = data.aws_ssm_parameter.cart_tg_arn.value
   }
   
   condition {
@@ -112,7 +112,7 @@ resource "aws_lb_listener_rule" "shipping_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = data.shipping_tg_arn.value
+    target_group_arn = data.aws_ssm_parameter.shipping_tg_arn.value
   }
   
   condition {
@@ -130,7 +130,7 @@ resource "aws_lb_listener_rule" "payment_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = data.payment_tg_arn.value
+    target_group_arn = data.aws_ssm_parameter.payment_tg_arn.value
   }
   
   condition {
