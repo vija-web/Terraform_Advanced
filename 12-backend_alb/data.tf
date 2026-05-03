@@ -59,21 +59,21 @@ data "aws_ssm_parameter" "ami_password" {
 }
 
 data "aws_ssm_parameter" "catalogue_tg_arn" {
-  name = "catalogue-tg-arn"
+  name = "Catalogue-tg-arn"
 }
 
 data "aws_ssm_parameter" "user_tg_arn" {
-  name = "user-tg-arn"
+  name = "User-tg-arn"
 }
 
 data "aws_ssm_parameter" "cart_tg_arn" {
-  name = "cart-tg-arn"
+  name = "Cart-tg-arn"
 }
 
 data "aws_ssm_parameter" "shipping_tg_arn" {
-  name = "shipping-tg-arn"
+  name = "Shipping-tg-arn"
 }
 
 data "aws_ssm_parameter" "payment_tg_arn" {
-  name = "payment-tg-arn"
+  name = "Payment-tg-arn"
 }
