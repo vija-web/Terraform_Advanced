@@ -26,7 +26,7 @@ resource "aws_instance" "Mongodb" {
     inline = [
       "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
-      "sudo sh /tmp/bootstrap.sh Mongodb"
+      "sudo sh /tmp/bootstrap.sh Mongodb ${var.project} ${var.environment} ${var.zones[count.index]}"
     ]
   }
 }
@@ -59,7 +59,7 @@ resource "aws_instance" "redis" {
     inline = [
       "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
-      "sudo sh /tmp/bootstrap.sh Redis"
+      "sudo sh /tmp/bootstrap.sh Redis ${var.project} ${var.environment} ${var.zones[count.index]}"
     ]
   }
 }
@@ -91,7 +91,7 @@ resource "aws_instance" "RabbitMQ" {
     inline = [
       "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
-      "sudo sh /tmp/bootstrap.sh RabbitMQ"
+      "sudo sh /tmp/bootstrap.sh RabbitMQ ${var.project} ${var.environment} ${var.zones[count.index]}"
     ]
   }
 }
@@ -123,7 +123,7 @@ resource "aws_instance" "mysql" {
     inline = [
       "sleep 60",
       "chmod 777 /tmp/bootstrap.sh", 
-      "sudo sh /tmp/bootstrap.sh Mysql"
+      "sudo sh /tmp/bootstrap.sh Mysql ${var.project} ${var.environment} ${var.zones[count.index]}"
     ]
   }
 }
