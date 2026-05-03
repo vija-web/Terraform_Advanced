@@ -7,7 +7,7 @@ terraform {
   }
   backend "s3" {
     bucket = "vpc-module-terraform"
-    key    = "Roboshop-backend-frontend-alb"
+    key    = "Roboshop-application-acm"
     region = "us-east-1"
     use_lockfile = true 
   }
