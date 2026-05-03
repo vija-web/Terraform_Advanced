@@ -23,6 +23,6 @@ variable "component" {
     default = "catalogue"
 }
 
-variables "microservices" {
+variable "microservices" {
     default = [ "catalogue" , "shipping" , "user" , "cart" , "payment" ]
 }
