@@ -21,3 +21,8 @@ variable "domain_name" {
 variable "component" {
     type = string
 }
+
+variable "ami_password" {
+  type = string
+  default = ""
+}
