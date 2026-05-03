@@ -23,7 +23,7 @@ resource "terraform_data" "main" {
   connection {
     type     = "ssh"
     user     = "ec2-user"
-    password = var.ami_password
+    password = "${var.ami_password}"
     host     = aws_instance.main[count.index].private_ip
   }
 
