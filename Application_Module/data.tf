@@ -60,3 +60,7 @@ data "aws_route53_zone" "selected" {
 data "aws_ssm_parameter" "ami_password" {
   name = "ami_password"
 }
+
+data "aws_ssm_parameter" "component_sg_id" {
+  name = "${var.project}-${var.environment}-${var.component}-sg"
+}

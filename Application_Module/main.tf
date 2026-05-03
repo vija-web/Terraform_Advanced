@@ -5,7 +5,7 @@ resource "aws_instance" "main" {
   ami           = "ami-0220d79f3f480ecf5"
   instance_type = "t3.micro"
   subnet_id = data.aws_ssm_parameter.application_subnet_ids[count.index].value
-  vpc_security_group_ids = [ "data.aws_ssm_parameter.${var.component}_sg_id.value" ]
+  vpc_security_group_ids = [ local.sg_id ]
 
   tags = {
     Name = "${var.component}-${var.zones[count.index]}"
