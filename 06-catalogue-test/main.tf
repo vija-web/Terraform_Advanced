@@ -6,5 +6,5 @@ module "application_module_extends_catalogue" {
     region_name = var.region_name
     domain_name = var.domain_name
     component = var.component
-    ami_password = data.ami_password.value
+    ami_password = data.aws_ssm_parameter.ami_password.value
 }
