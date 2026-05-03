@@ -15,7 +15,7 @@ data "aws_ssm_parameter" "public_subnet_ids" {
 
 data "aws_ssm_parameter" "private_subnet_ids" {
   count = 2
-  name = "${local.common}-private_subnet-${var.zones[count.index]}"
+  name = "${local.common}-application_subnet-${var.zones[count.index]}"
 }
 
 data "aws_ssm_parameter" "catalogue_sg_id" {
