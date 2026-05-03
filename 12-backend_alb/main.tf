@@ -70,7 +70,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
   }
 }
 
-resource "aws_lb_listener_rule" "catalogue_rule" {
+resource "aws_lb_listener_rule" "user_rule" {
   listener_arn = aws_lb_listener.http_listener.arn
   priority     = 2
 
@@ -88,7 +88,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
   }
 }
 
-resource "aws_lb_listener_rule" "catalogue_rule" {
+resource "aws_lb_listener_rule" "cart_rule" {
   listener_arn = aws_lb_listener.http_listener.arn
   priority     = 3
 
@@ -106,7 +106,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
   }
 }
 
-resource "aws_lb_listener_rule" "catalogue_rule" {
+resource "aws_lb_listener_rule" "shipping_rule" {
   listener_arn = aws_lb_listener.http_listener.arn
   priority     = 4
 
@@ -124,7 +124,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
   }
 }
 
-resource "aws_lb_listener_rule" "catalogue_rule" {
+resource "aws_lb_listener_rule" "payment_rule" {
   listener_arn = aws_lb_listener.http_listener.arn
   priority     = 5
 
