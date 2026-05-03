@@ -58,7 +58,7 @@ data "aws_ssm_parameter" "ami_password" {
 }
 
 data "aws_ssm_parameter" "application_tg_arn" {
-  name = "frontend-tg-arn"
+  name = "Frontend-tg-arn"
 }
 
 data "aws_ssm_parameter" "roboshop-certificate" {
