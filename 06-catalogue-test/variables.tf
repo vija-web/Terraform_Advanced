@@ -19,5 +19,5 @@ variable "domain_name" {
 }
 
 variable "component" {
-    default = "catalogue"
+    default = "Catalogue"
 }
