@@ -1,5 +1,5 @@
 resource "aws_acm_certificate" "cert" {
-  domain_name       = "*.vijayaws.com"
+  domain_name       = "*.vijayaws.fun"
   validation_method = "DNS"
 
   tags = {
