@@ -25,7 +25,7 @@ resource "aws_route53_record" "example" {
   records         = [each.value.record]
   ttl             = 1
   type            = each.value.type
-  zone_id         = data.aws_route53_zone.selected.value
+  zone_id         = data.aws_route53_zone.selected.zone_id
 }
 
 resource "aws_acm_certificate_validation" "cert_validation" {
