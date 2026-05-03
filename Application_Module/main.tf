@@ -83,14 +83,14 @@ resource "aws_launch_template" "application-launch-template" {
 
 resource "aws_lb_target_group" "application_tg" {
   name     = "${var.component}-tg"
-  port     = 8080
+  port     = "${var.component}" == "Frontend" ? 80 : 8080
   protocol = "HTTP"
   vpc_id   = data.aws_ssm_parameter.roboshop_vpc_id.value
 
   health_check {
     enabled             = true
-    path                = "/health"
-    port                = "8080"
+    path                = "${var.component}" == "Frontend" ? "/" : "/health" 
+    port                = "${var.component}" == "Frontend" ? "80" : "8080" 
     protocol            = "HTTP"
     healthy_threshold   = 3
     unhealthy_threshold = 2
