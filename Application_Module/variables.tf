@@ -24,5 +24,4 @@ variable "component" {
 
 variable "ami_password" {
   type = string
-  default = ""
 }
