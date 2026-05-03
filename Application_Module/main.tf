@@ -74,7 +74,7 @@ resource "aws_launch_template" "application-launch-template" {
 
   # when we do terraform apply 2nd time then new varsion will be created with new ami
   update_default_version = true
-  vpc_security_group_ids = [ "data.aws_ssm_parameter.${var.component}_sg_id.value" ]
+  vpc_security_group_ids = [ local.sg_id ]
 
   tags = {
     Name = "${var.component}-LT-${var.zones[count.index]}"
