@@ -23,7 +23,7 @@ resource "terraform_data" "catalogue" {
   connection {
     type     = "ssh"
     user     = "ec2-user"
-    password = "DevOps321"
+    password = "${data.ami_password}"
     host     = aws_instance.Catalogue[count.index].private_ip
   }
 

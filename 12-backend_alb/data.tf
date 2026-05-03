@@ -3,14 +3,6 @@ data "aws_availability_zones" "available" {
   region = var.region_name
 }
 
-data "aws_ssm_parameter" "public_subnet_id_useast1a" {
-  name = "${local.common}-public_subnet-us-east-1a"
-}
-
-data "aws_ssm_parameter" "public_subnet_id_useast1b" {
-  name = "${local.common}-public_subnet-us-east-1b"
-}
-
 data "aws_ssm_parameter" "application_subnet_ids" {
   count = 2
   name = "${local.common}-application_subnet-${var.zones[count.index]}"
@@ -21,23 +13,28 @@ data "aws_ssm_parameter" "public_subnet_ids" {
   name = "${local.common}-public_subnet-${var.zones[count.index]}"
 }
 
-data "aws_ssm_parameter" "Catalogue_sg_id" {
+data "aws_ssm_parameter" "private_subnet_ids" {
+  count = 2
+  name = "${local.common}-private_subnet-${var.zones[count.index]}"
+}
+
+data "aws_ssm_parameter" "catalogue_sg_id" {
   name = "${local.common}-Catalogue-sg"
 }
 
-data "aws_ssm_parameter" "Cart_sg_id" {
+data "aws_ssm_parameter" "cart_sg_id" {
   name = "${local.common}-Cart-sg"
 }
 
-data "aws_ssm_parameter" "Shipping_sg_id" {
+data "aws_ssm_parameter" "shipping_sg_id" {
   name = "${local.common}-Shipping-sg"
 }
 
-data "aws_ssm_parameter" "Payment_sg_id" {
+data "aws_ssm_parameter" "payment_sg_id" {
   name = "${local.common}-Payment-sg"
 }
 
-data "aws_ssm_parameter" "User_sg_id" {
+data "aws_ssm_parameter" "user_sg_id" {
   name = "${local.common}-User-sg"
 }
 
@@ -59,4 +56,24 @@ data "aws_route53_zone" "selected" {
 
 data "aws_ssm_parameter" "ami_password" {
   name = "ami_password"
+}
+
+data "aws_ssm_parameter" "catalogue_tg_arn" {
+  name = "catalogue-tg-arn"
+}
+
+data "aws_ssm_parameter" "user_tg_arn" {
+  name = "user-tg-arn"
+}
+
+data "aws_ssm_parameter" "cart_tg_arn" {
+  name = "cart-tg-arn"
+}
+
+data "aws_ssm_parameter" "shipping_tg_arn" {
+  name = "shipping-tg-arn"
+}
+
+data "aws_ssm_parameter" "payment_tg_arn" {
+  name = "payment-tg-arn"
 }

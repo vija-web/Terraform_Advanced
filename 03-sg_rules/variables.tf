@@ -1,12 +1,8 @@
 variable "instances" {
     default = [
-        "Bastion", "Frontend", "Catalogue", "Shipping", "Cart", "Payment" , "User", "Mongodb",
+        "Frontend", "Catalogue", "Shipping", "Cart", "Payment" , "User", "Mongodb",
         "Redis", "Mysql", "RabbitMQ" , "backend-alb"
     ]
-}
-
-variable "region_name" {
-    default = "us-east-1"
 }
 
 variable "project" {
@@ -15,4 +11,8 @@ variable "project" {
 
 variable "env" {
     default = "dev"
+}
+
+variable "region_name" {
+    default = "us-east-1"
 }

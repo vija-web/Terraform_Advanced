@@ -21,23 +21,23 @@ data "aws_ssm_parameter" "public_subnet_ids" {
   name = "${local.common}-public_subnet-${var.zones[count.index]}"
 }
 
-data "aws_ssm_parameter" "Catalogue_sg_id" {
+data "aws_ssm_parameter" "catalogue_sg_id" {
   name = "${local.common}-Catalogue-sg"
 }
 
-data "aws_ssm_parameter" "Cart_sg_id" {
+data "aws_ssm_parameter" "cart_sg_id" {
   name = "${local.common}-Cart-sg"
 }
 
-data "aws_ssm_parameter" "Shipping_sg_id" {
+data "aws_ssm_parameter" "shipping_sg_id" {
   name = "${local.common}-Shipping-sg"
 }
 
-data "aws_ssm_parameter" "Payment_sg_id" {
+data "aws_ssm_parameter" "payment_sg_id" {
   name = "${local.common}-Payment-sg"
 }
 
-data "aws_ssm_parameter" "User_sg_id" {
+data "aws_ssm_parameter" "user_sg_id" {
   name = "${local.common}-User-sg"
 }
 
