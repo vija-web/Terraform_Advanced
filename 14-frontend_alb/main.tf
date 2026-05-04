@@ -43,13 +43,8 @@ resource "aws_lb_listener" "http_listener" {
   certificate_arn   = data.aws_ssm_parameter.roboshop-certificate.value
 
   default_action {
-    type = "fixed-response"
-
-    fixed_response {
-      content_type = "text/plain"
-      message_body = "Invalid backend API path" # other than this /api/*
-      status_code  = "404"
-    }
+    type             = "forward"
+    target_group_arn = data.aws_ssm_parameter.application_tg_arn.value
   }
 }
 
@@ -61,7 +56,7 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
 
   action {
     type             = "forward"
-    target_group_arn = data.application_tg_arn.value
+    target_group_arn = data.aws_ssm_parameter.application_tg_arn.value
   }
   
   condition {

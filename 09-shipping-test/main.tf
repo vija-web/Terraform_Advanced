@@ -1,4 +1,4 @@
-module "application_module_extends_catalogue" {
+module "application_module_extends_shipping" {
     source = "../Application_Module"
     project = var.project
     environment = var.environment

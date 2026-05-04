@@ -62,5 +62,5 @@ data "aws_ssm_parameter" "application_tg_arn" {
 }
 
 data "aws_ssm_parameter" "roboshop-certificate" {
-  name = "${var.project}-${var.env}-certificate_arn"
+  name = "${var.project}-${var.environment}-certificate_arn"
 }
