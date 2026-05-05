@@ -9,6 +9,16 @@ resource "aws_security_group_rule" "allow_ssh" {
   source_security_group_id = data.aws_ssm_parameter.Bastion_sg_id.value
 }
 
+resource "aws_security_group_rule" "allusers_to_frontend_alb" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+
+  security_group_id = data.aws_ssm_parameter.frontend-alb_sg_id.value
+  cidr_blocks       = ["0.0.0.0/0"]
+}
+
 resource "aws_security_group_rule" "allow_ssh_for_bastion" {
   type                     = "ingress"
   from_port                = 22
@@ -69,15 +79,6 @@ resource "aws_security_group_rule" "Frontend-alb_to_Frontend" {
   source_security_group_id = data.aws_ssm_parameter.frontend-alb_sg_id.value 
 }
 
-resource "aws_security_group_rule" "allusers_to_frontend_alb" {
-  type                     = "ingress"
-  from_port                = 443
-  to_port                  = 443
-  protocol                 = "tcp"
-
-  security_group_id        = data.aws_ssm_parameter.frontend-alb_sg_id.value
-  cidr_blocks              = ["0.0.0.0/0"] 
-}
 
 resource "aws_security_group_rule" "user_to_mongodb" {
   type                     = "ingress"
@@ -207,4 +208,34 @@ resource "aws_security_group_rule" "backend_alb_to_payment" {
 
   security_group_id        = data.aws_ssm_parameter.Payment_sg_id.value
   source_security_group_id = data.aws_ssm_parameter.backend-alb_sg_id.value
+}
+
+resource "aws_security_group_rule" "cart_to_backend_alb" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+
+  security_group_id        = data.aws_ssm_parameter.backend-alb_sg_id.value
+  source_security_group_id = data.aws_ssm_parameter.Cart_sg_id.value
+}
+
+resource "aws_security_group_rule" "shipping_to_backend_alb" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+
+  security_group_id        = data.aws_ssm_parameter.backend-alb_sg_id.value
+  source_security_group_id = data.aws_ssm_parameter.Shipping_sg_id.value
+}
+
+resource "aws_security_group_rule" "payment_to_backend_alb" {
+  type                     = "ingress"
+  from_port                = 80
+  to_port                  = 80
+  protocol                 = "tcp"
+
+  security_group_id        = data.aws_ssm_parameter.backend-alb_sg_id.value
+  source_security_group_id = data.aws_ssm_parameter.Payment_sg_id.value
 }

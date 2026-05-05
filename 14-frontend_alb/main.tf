@@ -22,7 +22,7 @@ resource "aws_lb" "main_alb" {
 
 resource "aws_route53_record" "alb_route_creation" {
   zone_id = data.aws_route53_zone.selected.zone_id
-  name    = "frontend-alb-${var.project}-${var.environment}"
+  name    = "${var.project}-${var.environment}"
   type    = "A"
 
   alias {
@@ -49,7 +49,6 @@ resource "aws_lb_listener" "http_listener" {
 }
 
 
-# Listener Rule for /api/*
 resource "aws_lb_listener_rule" "catalogue_rule" {
   listener_arn = aws_lb_listener.http_listener.arn
   priority     = 1
@@ -60,8 +59,10 @@ resource "aws_lb_listener_rule" "catalogue_rule" {
   }
   
   condition {
-    path_pattern {
-      values = ["/api/*"]
+    host_header {
+      values = [
+        "${var.project}-${var.environment}.${var.domain_name}"
+      ]
     }
   }
 }

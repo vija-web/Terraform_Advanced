@@ -2,7 +2,7 @@
 # Application Load Balancer
 resource "aws_lb" "main_alb" {
   name               = "backend-alb"
-  internal           = false
+  internal           = true
   load_balancer_type = "application"
 
   # Public subnets in us-east-1a and us-east-1b
