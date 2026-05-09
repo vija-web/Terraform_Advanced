@@ -156,3 +156,5 @@ resource "aws_autoscaling_policy" "application_cpu_policy" {
 
   estimated_instance_warmup = 60
 }
+
+
